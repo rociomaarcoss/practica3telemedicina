@@ -4,6 +4,15 @@ var cors = require("cors");
 var jwt = require("jwt-simple"); // Módulo para JWT
 var clave = "miSecretoMasOscuro"; // Clave para codificar / decodificar el token
 
+// Importar el cliente de Supabase
+const {createClient} = require('@supabase/supabase-js');
+
+// Configurar con la URL y Public Key
+const supabaseUrl = 'https://ahbztuflnthqiselzajz.supabase.co';
+const supabaseKey = 'sb_publishable_trXeaIZvOlmuRuoN4FJFpA_VghOLDRd';
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+
 var app = express();
 
 app.use(cors());
