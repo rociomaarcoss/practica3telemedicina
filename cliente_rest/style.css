@@ -1,0 +1,443 @@
+/* VARIABLES DE COLOR (paleta de toda la app) */
+:root {
+    --primary: #0f766e;
+    --primary-dark: #115e59;
+    --primary-soft: #e6f4f1;
+    --bg: #f3f6f9;
+    --card: #ffffff;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --border: #e2e8f0;
+    --border-strong: #cbd5e1;
+    --danger: #dc2626;
+    --danger-soft: #fef2f2;
+    --radius: 12px;
+}
+
+/* ESTILOS GENERALES */
+body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    background: var(--bg);
+    padding: 20px;
+    color: var(--text);
+}
+
+/* Caja principal */
+.container {
+    display: table;
+    min-width: 700px;
+    margin: 0 auto;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+}
+
+/* Cabecera de la aplicación */
+.app-header {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: #fff;
+    text-align: center;
+    font-size: 26px;
+    font-weight: 600;
+    padding: 14px;
+    border-radius: 14px 14px 0 0;
+}
+
+.view-content {
+    padding: 16px 20px 30px 20px;
+}
+
+/* Oculta las pantallas que no tocan */
+.view {
+    display: none;
+}
+
+/* Título de cada sección */
+.seccion-titulo {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--primary-dark);
+    border-bottom: 2px solid var(--primary);
+    margin-top: 24px;
+    margin-bottom: 18px;
+    padding-bottom: 6px;
+}
+
+/* FORMULARIOS */
+.form-bloque {
+    width: 320px;
+    margin: 0 auto;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.form-row label {
+    width: 100px;
+    text-align: right;
+    margin-right: 10px;
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+input, select, textarea {
+    font-family: inherit;
+    font-size: 14px;
+    padding: 8px 10px;
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--text);
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 0;
+    border-color: var(--primary);
+}
+
+.form-row input { width: 200px; }
+
+select,
+.form-row select,
+.filtros select {
+    width: auto;
+    min-width: 70px;
+    max-width: 100%;
+}
+
+/* BOTONES */
+.botones-row {
+    margin-top: 5px;
+    margin-left: 110px;
+}
+
+button {
+    margin-right: 5px;
+    padding: 8px 14px;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, box-shadow 0.15s;
+}
+
+button:hover {
+    background: #f1f5f9;
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+/* Botón principal */
+.btn-primary,
+button[type="submit"] {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+}
+.btn-primary:hover,
+button[type="submit"]:hover {
+    background: var(--primary-dark);
+}
+
+/* Botón de acciones peligrosas (borrar, cancelar, salir...) */
+.btn-danger {
+    background: var(--danger-soft);
+    border-color: #fecaca;
+    color: var(--danger);
+}
+.btn-danger:hover {
+    background: #fee2e2;
+}
+
+/* Botón redondo con icono de papelera */
+.btn-papelera {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    font-size: 0;
+    vertical-align: middle;
+    border-radius: 50%;
+    border-color: #fecaca;
+    background: var(--danger-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23dc2626' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='3 6 5 6 21 6'/%3E%3Cpath d='M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6'/%3E%3Cpath d='M10 11v6M14 11v6'/%3E%3Cpath d='M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2'/%3E%3C/svg%3E") center / 18px no-repeat;
+}
+.btn-papelera:hover {
+    background-color: #fee2e2;
+}
+
+/* Botón ancho completo (útil para enviar al Ministerio) */
+.btn-nfc {
+    display: block;
+    width: 100%;
+    margin: 16px 0;
+    padding: 12px;
+    border-radius: var(--radius);
+    background: var(--primary-soft);
+    border-color: var(--primary);
+    color: var(--primary-dark);
+}
+.btn-nfc:hover {
+    background: #ccefe9;
+}
+
+/* PANTALLA PRINCIPAL (TABLAS Y FILTROS) */
+.filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.filtros label {
+    color: var(--muted);
+    font-weight: 600;
+    margin-right: 5px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 13px;
+}
+
+th, td {
+    border: 1px solid var(--border);
+    padding: 8px 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #eef2f6;
+    color: var(--muted);
+    font-weight: 600;
+}
+
+/* Colores de fila de reservas */
+.fila-blanca { background-color: #ffffff; }
+.fila-verde  { background-color: #ecfdf5; }
+.fila-azul   { background-color: #eff6ff; }
+.fila-roja   { background-color: #fef2f2; }
+
+/* Bienvenido + nombre + botones en una línea */
+.bienvenida {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+#welcome-user { font-size: 16px; font-weight: 600; }
+.bienvenida button { margin: 0; }
+
+.acciones-fila {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+}
+.acciones-fila button { margin: 0; }
+
+/* ADAPTACIÓN MÓVIL: las tablas del Gestor pasan a ser tarjetas */
+@media (max-width: 768px) {
+
+    body {
+        padding: 8px;
+        background: linear-gradient(180deg, #ccefe9 0%, var(--bg) 260px) no-repeat;
+    }
+
+    .container {
+        min-width: 100%;
+        display: block;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .app-header { display: none; }
+    .view-content { padding: 8px 4px 30px 4px; }
+
+    .form-bloque { width: 100%; }
+    .form-row { flex-direction: column; align-items: flex-start; }
+    .form-row label { text-align: left; width: 100%; margin-bottom: 4px; }
+    .form-row input, textarea {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .form-row select { width: auto; max-width: 100%; }
+
+    .botones-row {
+        margin-left: 0 !important;
+        margin-top: 15px;
+    }
+
+    .filtros {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    /* TABLAS COMO TARJETAS */
+    table, tbody, tr, td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    thead { display: none; }
+    table { border: none; margin-top: 10px; }
+
+    tr {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 4px 10px;
+        margin-bottom: 12px;
+        padding: 12px 14px;
+        border: 1px solid var(--border);
+        border-left: 5px solid var(--primary);
+        border-radius: var(--radius);
+        background: var(--card);
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.07);
+    }
+
+    td {
+        display: block;
+        flex: 0 0 100%;
+        width: auto;
+        min-width: 0;
+        border: none;
+        padding: 0 !important;
+        text-align: left;
+        font-size: 13px;
+        overflow-wrap: break-word;
+    }
+
+    td::before {
+        content: none;
+        font-size: 11px;
+        font-weight: 600;
+        color: #374151;
+        margin-right: 4px;
+    }
+
+    /* Cabecera de cada tarjeta en las tablas del Gestor */
+    #tabla-recursos td:nth-of-type(1),
+    #tabla-reservas td:nth-of-type(1),
+    #tabla-resenyas td:nth-of-type(2),
+    #tbody-avisos td:nth-of-type(1),
+    #tabla-ranking-ministerio td:nth-of-type(2) {
+        flex: 1 1 auto;
+        min-width: min-content;
+        order: 1;
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--primary-dark);
+    }
+
+    /* 1. TABLA RECURSOS (1 N.Serie | 2 Categoría | 3 Modelo | 4 Ubicación | 5 Estado | 6 Botones) */
+    #tabla-recursos td:nth-of-type(5) {
+        flex: 0 0 auto;
+        order: 2;
+        font-weight: 700;
+        background: var(--primary-soft);
+        color: var(--primary-dark);
+        padding: 3px 10px !important;
+        border-radius: 999px;
+    }
+    #tabla-recursos td:nth-of-type(2) { order: 3; }
+    #tabla-recursos td:nth-of-type(3) { order: 4; }
+    #tabla-recursos td:nth-of-type(4) { order: 5; flex: 1 1 auto; }
+    #tabla-recursos td:last-child     { order: 6; flex: 0 0 auto; display: flex; gap: 8px; }
+
+    #tabla-recursos td:nth-of-type(2)::before { content: "Categoría:"; }
+    #tabla-recursos td:nth-of-type(3)::before { content: "Modelo:"; }
+    #tabla-recursos td:nth-of-type(4)::before { content: "Ubicación:"; }
+
+    /* 2. TABLA RANKING MINISTERIO (1 # | 2 Área Médica | 3 Reservas Totales) */
+    #tabla-ranking-ministerio tr { border-left-color: #3b82f6; }
+    #tabla-ranking-ministerio td:nth-of-type(1) {
+        flex: 0 0 auto;
+        order: 0;
+        font-weight: 700;
+        color: var(--muted);
+    }
+    #tabla-ranking-ministerio td:nth-of-type(1)::before { content: "#"; margin-right: 1px; }
+    #tabla-ranking-ministerio td:nth-of-type(3) {
+        flex: 0 0 auto;
+        order: 2;
+        font-weight: 700;
+        background: var(--primary-soft);
+        color: var(--primary-dark);
+        padding: 3px 10px !important;
+        border-radius: 999px;
+    }
+    #tabla-ranking-ministerio td:nth-of-type(3)::before { content: "Reservas:"; }
+
+    /* 3. TABLA RESERVAS DETALLE (1 Sanitario | 2 Horas | 3 F.Petición | 4 F.Inicio | 5 F.Fin) */
+    #tabla-reservas td:nth-of-type(2) {
+        flex: 0 0 auto;
+        order: 2;
+        font-weight: 700;
+        background: var(--primary-soft);
+        color: var(--primary-dark);
+        padding: 3px 10px !important;
+        border-radius: 999px;
+    }
+    #tabla-reservas td:nth-of-type(3) { order: 3; }
+    #tabla-reservas td:nth-of-type(4) { order: 4; }
+    #tabla-reservas td:nth-of-type(5) { order: 5; }
+
+    #tabla-reservas td:nth-of-type(3)::before { content: "F. petición:"; }
+    #tabla-reservas td:nth-of-type(4)::before { content: "F. inicio:"; }
+    #tabla-reservas td:nth-of-type(5)::before { content: "F. fin:"; }
+
+    /* 4. TABLA RESEÑAS (1 Fecha | 2 Sanitario | 3 Valor | 4 Descripción) */
+    #tabla-resenyas td:nth-of-type(3) {
+        flex: 0 0 auto;
+        order: 2;
+        font-weight: 700;
+        background: var(--primary-soft);
+        color: var(--primary-dark);
+        padding: 3px 10px !important;
+        border-radius: 999px;
+    }
+    #tabla-resenyas td:nth-of-type(1) { order: 3; font-size: 12px; color: var(--muted); }
+    #tabla-resenyas td:nth-of-type(4) { order: 4; }
+
+    #tabla-resenyas td:nth-of-type(1)::before { content: "Fecha:"; }
+    #tabla-resenyas td:nth-of-type(3)::before { content: "Nota:"; }
+
+    /* 5. TABLA AVISOS (1 Fecha | 2 Origen | 3 Texto) */
+    #tbody-avisos td:nth-of-type(1) { font-size: 12px; font-weight: 600; color: var(--muted); }
+    #tbody-avisos td:nth-of-type(2) { flex: 0 0 auto; order: 2; font-weight: 700; text-align: right; font-size: 12px; }
+    #tbody-avisos td:nth-of-type(3) { order: 3; }
+
+    #tbody-avisos td:nth-of-type(1)::before { content: "Fecha:"; }
+    #tbody-avisos td:nth-of-type(2)::before { content: "Origen:"; }
+
+    /* Botones dentro de las tarjetas */
+    td button {
+        margin: 0;
+        padding: 7px 16px;
+        font-size: 13px;
+        background: var(--primary);
+        border-color: var(--primary);
+        color: #fff;
+    }
+    td button:hover { background: var(--primary-dark); }
+    td .btn-papelera { padding: 0; }
+}

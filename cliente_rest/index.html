@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión Hospitalaria SD</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+    <div class="app-header">Aplicación Gestor</div>
+    <div class="view-content">
+        <!-- PANTALLA DE ENTRAR -->
+        <div id="login-view" class="view" style="display: block;">
+            <div class="seccion-titulo">Acceso</div>
+            
+            <div class="form-bloque">
+                <div class="form-row">
+                    <label>Usuario:</label>
+                    <input type="text" id="login-u">
+                </div>
+                <div class="form-row">
+                    <label>Contraseña:</label>
+                    <input type="password" id="login-p">
+                </div>
+                
+                <div class="botones-row">
+                    <button onclick="handleLogin()">Entrar</button>
+                    <button onclick="mostrarRegistro()">Registrarse</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANTALLA PARA REGISTRARSE O EDITAR EL PERFIL DE UN GESTOR-->
+        <div id="gestor-view" class="view">
+            <h3>DATOS GESTOR</h3>
+            <input type="hidden" id="gestor-id">
+            <div class="form-row"><label>Nombre:</label><input type="text" id="gestor-n"></div>
+            <div class="form-row"><label>Apellidos:</label><input type="text" id="gestor-a"></div>
+            <div class="form-row"><label>Login:</label><input type="text" id="gestor-u"></div>
+            <div class="form-row"><label>Contraseña:</label><input type="password" id="gestor-p"></div>
+            <div style="margin-left: 130px; margin-top: 10px;">
+                <button onclick="guardarGestor()">Guardar</button>
+                <button onclick="cancelarGestor()">Cancelar</button>
+            </div>
+        </div>
+
+        <!-- PANTALLA PRINCIPAL CON LOS FILTROS Y LA TABLA-->
+        <div id="home-view" class="view">
+            <h3>INICIO</h3>
+            <div style="margin-bottom: 20px;">
+                <span id="welcome-user">Bienvenido</span> 
+                <button onclick="mostrarEdicion()" style="margin-left: 10px;">Editar datos</button>
+            </div>
+            
+            <h3>Búsqueda de recursos</h3>
+            <div class="form-row"><label>Categoría:</label><select id="filtro-cat" onchange="actualizarModelos('filtro')"></select></div>
+            <div class="form-row"><label>Modelo:</label><select id="filtro-mod"></select></div>
+            <div class="form-row"><label>Ubicación:</label><select id="filtro-ubi"></select></div>
+            <div class="form-row">
+                <label>Estado:</label>
+                <select id="filtro-est">
+                    <option value="Todos">Todos</option>
+                    <option value="0">Operativo</option>
+                    <option value="1">Baja</option>
+                    <option value="2">Mantenimiento</option>
+                </select>
+            </div>
+            <div style="margin-left: 130px;"><button onclick="cargarTablaRecursos()">Buscar</button></div>
+
+            <h3>Recursos</h3>
+            <table>
+                <thead>
+                    <tr><th>N. Serie</th><th>Categoría</th><th>Modelo</th><th>Ubicación</th><th>Estado</th><th></th></tr>
+                </thead>
+                <tbody id="tabla-recursos"></tbody>
+            </table>
+            <br>
+            <button onclick="nuevoRecurso()">Añadir Recurso</button>
+            <div style="text-align: right; margin-top: 20px;">
+                <button onclick="logout()">Salir</button>
+            </div>
+
+            <!-- TABLA DE AVISOS (Parte 3 - WebSockets) -->
+            <h3>Avisos</h3>
+            <table>
+                <thead>
+                    <tr><th>Fecha</th><th>Origen</th><th>Aviso</th></tr>
+                </thead>
+                <tbody id="tbody-avisos"></tbody>
+            </table>
+
+            <!-- NUEVO: SECCIÓN MINISTERIO DE SANIDAD (Práctica 3 - Parte 1) -->
+            <h3>Ministerio de Sanidad (Área 9: Hematología)</h3>
+            <button onclick="enviarDatosMinisterio()">Enviar reservas al Ministerio</button>
+            <button onclick="cargarRankingMinisterio()">Actualizar Ranking</button>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Área Médica</th>
+                        <th>Reservas Totales</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-ranking"></tbody>
+            </table>
+        </div>
+
+        <!-- PANTALLA PARA ABRIR O CERRAR UN RECURSO-->
+        <div id="detalle-view" class="view">
+            <h3>RECURSO</h3>
+            <b>Datos recurso</b>
+            <br>
+            <input type="hidden" id="form-id">
+            
+            <div class="form-row"><label>Categoría:</label><select id="form-cat" onchange="actualizarModelos('formulario')"></select></div>
+            <div class="form-row"><label>Modelo:</label><select id="form-mod"></select></div>
+            <div class="form-row"><label>Núm. Serie:</label><input type="text" id="form-serie"></div>
+            <div class="form-row"><label>Ubicación:</label><select id="form-ubi"></select></div>
+            <div class="form-row">
+                <label>Estado:</label>
+                <select id="form-est">
+                    <option value="0">Operativo</option>
+                    <option value="1">Baja</option>
+                    <option value="2">Mantenimiento</option>
+                </select>
+            </div>
+            <button onclick="guardar()">Guardar</button>
+
+            <div id="panel-historial" style="margin-top: 20px;">
+                <b>Reservas</b>
+                <table>
+                    <thead><tr><th>Sanitario</th><th>H. estim.</th><th>F. Petición</th><th>F. Inicio</th><th>F. Fin</th></tr></thead>
+                    <tbody id="tabla-reservas"></tbody>
+                </table>
+                <br>
+                <b>Reseñas</b>
+                <table>
+                    <thead><tr><th>Fecha</th><th>Sanitario</th><th>Valoración</th><th>Comentario</th></tr></thead>
+                    <tbody id="tabla-resenyas"></tbody>
+                </table>
+            </div>
+            <div style="text-align: right; margin-top: 20px;">
+                <button onclick="navegar('home-view')">Volver al listado</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+    <script src="rest.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
