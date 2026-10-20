@@ -498,6 +498,8 @@ function formatearFechaMinisterio(fechaOriginal) {
         return null;
     } 
     // Se intenta obtener la fecha en milisegundos --> si es un texto inválido, devolverá NaN
+    const f = new Date(fechaOriginal);
+    
     if (isNaN(f.getTime())){
         return null;
     } 
